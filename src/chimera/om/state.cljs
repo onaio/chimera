@@ -1,4 +1,4 @@
-(ns ona.chimera.om.state
+(ns chimera.om.state
   (:require [om.core :as om :include-macros true]))
 
 (defn app-state->transact
@@ -7,6 +7,7 @@
     om/transact! swap!))
 
 (defn transact!
+  "Like om/transact! but also works on atoms that are not transactable."
   ([app-state transact-fn]
    ((app-state->transact app-state) app-state transact-fn))
   ([app-state ks transact-fn]
