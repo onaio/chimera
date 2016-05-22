@@ -8,6 +8,13 @@
   [s]
   (transit/read (transit/reader :json) s))
 
+(defn str->json
+  "Convert json to js using JSON.parse.
+   If error occurs, return the string unmodified."
+  [string]
+  (try (.parse js/JSON string)
+       (catch js/Error _ string)))
+
 (defn json->js->cljs
   "Convert json string to cljs via js.
    Slow method, but preserves keywords, and appropriate for small json."
