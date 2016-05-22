@@ -5,7 +5,7 @@
 
 (defproject onaio/chimera "0.0.1-SNAPSHOT"
   :description "Collection of useful Clojure functions."
-  :dependencies [[org.clojure/clojure "1.8.3"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.8.51"
                   :exclusions [org.clojure/clojure]]
                  [com.cognitect/transit-cljs "0.8.237"]]
