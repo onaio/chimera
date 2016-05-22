@@ -31,7 +31,7 @@
                                    :pretty-print true
                                    :source-map ~(js-dir "lib/main.js.map")}}
                        :test
-                       {:source-paths ["src" "tests/cljs"]
+                       {:source-paths ["src"]
                         :notify-command ["phantomjs"
                                          "phantom/unit-test.js"
                                          "phantom/unit-test.html"
