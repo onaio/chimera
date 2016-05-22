@@ -5,7 +5,6 @@ script:
     - lein2 cljfmt check
     - lein2 eastwood
     - lein2 kibit
-    - lein2 midje
     - lein2 cljsbuild once dev
     - lein2 cljsbuild once prod
     - lein2 cljsbuild test
