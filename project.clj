@@ -8,7 +8,8 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.8.51"
                   :exclusions [org.clojure/clojure]]
-                 [com.cognitect/transit-cljs "0.8.237"]]
+                 [com.cognitect/transit-cljs "0.8.237"]
+                 [org.omcljs/om "0.9.0"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
   :plugins [[jonase/eastwood "0.2.1"]
