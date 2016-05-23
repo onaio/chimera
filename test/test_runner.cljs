@@ -1,6 +1,7 @@
 (ns test-runner
   (:require
    [cljs.test :as test :refer-macros [run-tests] :refer [report]]
+   [chimera.js-interop-test]
    [chimera.seq-test]))
 
 (enable-console-print!)
@@ -15,6 +16,7 @@
   (if (cljs.test/successful?
        (run-tests
         (test/empty-env ::test/default)
+        'chimera.js-interop-test
         'chimera.seq-test))
     0
     1))
