@@ -10,4 +10,6 @@
   [list elem]
   (boolean (some #(= elem %) list)))
 
+(defn mapply [f & args] (apply f (apply concat (butlast args) (last args))))
+
 (def select-values (comp vals select-keys))
