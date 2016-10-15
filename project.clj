@@ -6,9 +6,9 @@
 (defproject onaio/chimera "0.0.2-SNAPSHOT"
   :description "Collection of useful Clojure functions."
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.8.51"
+                 [org.clojure/clojurescript "1.9.229"
                   :exclusions [org.clojure/clojure]]
-                 [com.cognitect/transit-cljs "0.8.237"]
+                 [com.cognitect/transit-cljs "0.8.239"]
                  [org.omcljs/om "0.9.0"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
