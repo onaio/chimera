@@ -1,5 +1,5 @@
-(ns chimera.core)
+(ns chimera.core
+  #?(:cljs (:refer-clojure :exclude [any?])))
 
-#?(:clj
-   (def any? (complement not-any?)))
+(def any? (complement not-any?))
 (def not-nil? (complement nil?))
