@@ -8,5 +8,6 @@
 (deftest compositions-api
   (testing "any? calls complement on not-any?"
     (is (= true (core/any? false? '(true true false true)))))
+
   (testing "not-nil? calls complement on nil?"
     (is (= true (core/not-nil? [])))))

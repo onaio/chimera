@@ -13,3 +13,5 @@
 (defn mapply [f & args] (apply f (apply concat (butlast args) (last args))))
 
 (def select-values (comp vals select-keys))
+
+(def filter-first (comp first filter))
