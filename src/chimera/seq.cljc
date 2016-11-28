@@ -17,6 +17,9 @@
 
 (def select-value (comp first select-values))
 
+#?(:clj
+   (def default-date (time/date-time 1990 1 1)))
+
 (defn duplicates
   "Return a list of all items that appear more than once in a sequence."
   [l]
@@ -33,9 +36,6 @@
   (boolean (some #(= elem %) list)))
 
 (defn mapply [f & args] (apply f (apply concat (butlast args) (last args))))
-
-#?(:clj
-   (def default-date (time/date-time 1990 1 1)))
 
 (defn sort-by-category
   [sort-by-key collection]
