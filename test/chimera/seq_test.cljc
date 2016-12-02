@@ -3,6 +3,7 @@
   (:require [chimera.seq :refer [filter-collection
                                  filter-out-collection
                                  flatten-map
+                                 full-stringify-keys
                                  in?
                                  indexed
                                  ordered-diff
@@ -123,3 +124,16 @@
       (is (= (indexed [:a :b :c]) [[0 :a] [1 :b] [2 :c]]))
       (is (= (indexed []) []))
       (is (= (indexed nil) ())))))
+
+(deftest full-stringify-keys-test
+  (testing "normal keys are converted to strings"
+    (is (= (full-stringify-keys {:a 1})
+           {"a" 1})))
+
+  (testing "dotted keys are converted to strings"
+    (is (= (full-stringify-keys {:a.b 1})
+           {"a.b" 1})))
+
+  (testing "namespaced keys are converted to strings"
+    (is (= (full-stringify-keys {:a/b.c 1})
+           {"a/b.c" 1}))))

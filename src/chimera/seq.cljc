@@ -1,6 +1,7 @@
 (ns chimera.seq
-  (:require [clojure.string :as string]
-            [chimera.string :refer [substring?]]
+  (:require [chimera.string :refer [substring?]]
+            [clojure.string :as string]
+            [clojure.walk :refer [postwalk]]
             [clojure.set :as clj-set]
             #?@(:clj  [[clj-time.core :as time]
                        [clj-time.local :as l]])))
@@ -208,3 +209,10 @@
   "Get the first map from a list of maps with the given value for key."
   [map-list k v]
   (filter-first #(= (k %) v) map-list))
+
+(defn full-stringify-keys
+  "Recursively transforms all map keys from keywords to strings."
+  [m]
+  (let [f (fn [[k v]] (if (keyword? k) [(subs (str k) 1) v] [k v]))]
+    ;; only apply to maps
+    (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
