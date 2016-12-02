@@ -3,7 +3,7 @@
       [path]
       (str "resources/public/js/" path))
 
-(defproject onaio/chimera "0.0.4"
+(defproject onaio/chimera "0.0.5-SNAPSHOT"
   :description "Collection of useful Clojure functions."
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293"
