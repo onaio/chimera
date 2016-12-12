@@ -9,6 +9,8 @@
 (def is-not-null?
   (complement is-null?))
 
+(defn safe-lower-case [str] (when (string? str) (string/lower-case str)))
+
 (defn ^Boolean substring?
   "True if substring is a substring of string"
   [substring string & {:keys [case-sensitive?] :or {case-sensitive? true}}]
