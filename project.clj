@@ -24,7 +24,7 @@
              :add-linters [:unused-fn-args :unused-locals :unused-namespaces
                            :unused-private-vars]
              :namespaces [:source-paths]}
-  :test-paths ["tests/clj" "target/generated/tests/clj"]
+  :test-paths ["test/chimera"]
   :cljsbuild {
               :builds {:dev
                        {:compiler {:output-to ~(js-dir "chimera.js")

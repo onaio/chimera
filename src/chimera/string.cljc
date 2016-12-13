@@ -1,5 +1,6 @@
 (ns chimera.string
-  (:require [chimera.core :refer [not-nil?]]))
+  (:require [chimera.core :refer [not-nil?]]
+            [clojure.string :refer [lower-case]]))
 
 (defn is-null?
   "Checks if a variable is null"
@@ -9,7 +10,7 @@
 (def is-not-null?
   (complement is-null?))
 
-(defn safe-lower-case [str] (when (string? str) (string/lower-case str)))
+(defn safe-lower-case [str] (when (string? str) (lower-case str)))
 
 (defn ^Boolean substring?
   "True if substring is a substring of string"

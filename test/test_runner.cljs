@@ -1,8 +1,10 @@
 (ns test-runner
   (:require
    [cljs.test :as test :refer-macros [run-tests] :refer [report]]
+   [chimera.core-test]
    [chimera.js-interop-test]
-   [chimera.seq-test]))
+   [chimera.seq-test]
+   [chimera.string-test]))
 
 (enable-console-print!)
 
@@ -16,7 +18,9 @@
   (if (cljs.test/successful?
        (run-tests
         (test/empty-env ::test/default)
+        'chimera.core-test
         'chimera.js-interop-test
-        'chimera.seq-test))
+        'chimera.seq-test
+        'chimera.string-test))
     0
     1))
