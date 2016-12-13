@@ -20,3 +20,8 @@
    (transact! app-state #(merge % state-to-merge)))
   ([app-state ks state-to-merge]
    (transact! app-state ks #(merge % state-to-merge))))
+
+(defn set-states!
+  "Call set-state! for all key values passed."
+  [owner & kvs]
+  (doseq [[k v] (partition 2 kvs)] (om/set-state! owner k v)))

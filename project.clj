@@ -1,7 +1,7 @@
 (defn js-dir
       "Prefix with full JavaScript directory."
       [path]
-      (str "resources/public/js/" path))
+      (str "resources/public/js/compiled/" path))
 
 (defproject onaio/chimera "0.0.5-SNAPSHOT"
   :description "Collection of useful Clojure functions."
@@ -24,14 +24,14 @@
              :add-linters [:unused-fn-args :unused-locals :unused-namespaces
                            :unused-private-vars]
              :namespaces [:source-paths]}
-  :test-paths ["tests/clj" "target/generated/tests/clj"]
+  :test-paths ["test/chimera"]
   :cljsbuild {
               :builds {:dev
-                       {:compiler {:output-to ~(js-dir "lib/main.js")
-                                   :output-dir ~(js-dir "lib/out")
+                       {:compiler {:output-to ~(js-dir "chimera.js")
+                                   :output-dir ~(js-dir "out")
                                    :optimizations :whitespace
                                    :pretty-print true
-                                   :source-map ~(js-dir "lib/main.js.map")}}
+                                   :source-map ~(js-dir "chimera.js.map")}}
                        :test
                        {:source-paths ["src" "test"]
                         :notify-command ["phantomjs"
@@ -43,8 +43,8 @@
                                    :pretty-print true}}
                        :prod
                        {:source-paths ["src"]
-                        :compiler {:output-to ~(js-dir "lib/chimera.js")
-                                   :output-dir ~(js-dir "lib/out-prod")
+                        :compiler {:output-to ~(js-dir "chimera.js")
+                                   :output-dir ~(js-dir "out-prod")
                                    :optimizations :advanced
                                    :pretty-print false}
                         :jar true}}
