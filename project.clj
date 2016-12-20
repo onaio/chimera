@@ -5,12 +5,13 @@
 
 (defproject onaio/chimera "0.0.5-SNAPSHOT"
   :description "Collection of useful Clojure functions."
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[clj-time "0.12.2"]
+                 [com.cognitect/transit-cljs "0.8.239"]
+                 [com.taoensso/tempura "1.0.0"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293"
                   :exclusions [org.clojure/clojure]]
                  [org.clojure/core.async "0.2.395"]
-                 [com.cognitect/transit-cljs "0.8.239"]
-                 [clj-time "0.12.2"]
                  [org.omcljs/om "0.9.0"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
