@@ -138,8 +138,7 @@
   [string-to-process]
   (when (string? string-to-process)
     (-> string-to-process
-        (replace  #"\"| $|^ |^\n"
-                                 "")
+        (replace #"\"| $|^ |^\n" "")
         (replace #"\n" " ")
         (replace #"^ " "")
         (replace #"  " " "))))
