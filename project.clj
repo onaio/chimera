@@ -8,6 +8,7 @@
   :dependencies [[clj-time "0.12.2"]
                  [com.cognitect/transit-cljs "0.8.239"]
                  [com.taoensso/tempura "1.0.0"]
+                 [onelog "0.4.5"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293"
                   :exclusions [org.clojure/clojure]]
@@ -15,12 +16,14 @@
                  [org.omcljs/om "0.9.0"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
+  :profiles {:dev {:dependencies [[midje "1.8.3"]]}}
   :plugins [[jonase/eastwood "0.2.1"]
             [lein-bikeshed-ona "0.2.1"]
             [lein-cljfmt "0.3.0"]
             [lein-cljsbuild "1.1.2"]
             [lein-environ "1.0.1"]
-            [lein-kibit "0.1.2"]]
+            [lein-kibit "0.1.2"]
+            [lein-midje "3.1.3"]]
   :cljfmt {:file-pattern #"[^\.#]*\.clj[s]?$"}
   :eastwood {:exclude-linters [:constant-test]
              :add-linters [:unused-fn-args
@@ -29,7 +32,7 @@
                            :unused-private-vars]
              :namespaces [:source-paths]
              :exclude-namespaces [chimera.async]}
-  :test-paths ["test/chimera" "target/generated/test/clj"]
+  :test-paths ["test"]
   :cljsbuild {
               :builds {:dev
                        {:compiler {:output-to ~(js-dir "chimera.js")
