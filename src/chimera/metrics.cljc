@@ -2,21 +2,18 @@
   (:require [chimera.seq :refer [remove-nil]]
             [clojure.string :refer [join]]))
 
-;;; Metrics library for wiring event handles to an external service that
-;;; receives metric events via JavaScript calls
+;;; Metrics library for wiring event handlers to external services that
+;;; receive metric events via JavaScript calls.
 
 (defn call-ga
-  "Get google analytics `ga` object and call with `args`. If `ga` does not
-   exist do nothing."
+  "In CLJ, return a string that is a valid JS function call to `ga` passing
+   it the non-nil `args`.
+   In CLJS, get google analytics `ga` object and call with the non-nil `args`.
+   If `ga` does not exist do nothing."
   [& args]
   (let [final-args (remove-nil args)]
     #?(:clj (format "ga('%s');" (join "', '" final-args))
-       :cljs (when-let [g (aget js/window "ga")]
-               (apply g final-args)))))
-
-(defn- call-ga-send-event
-  [& args]
-  (apply call-ga (concat ["send" "event"] args)))
+       :cljs (when-let [g (aget js/window "ga")] (apply g final-args)))))
 
 (defprotocol AnalyticsEvent
   "Create google analytics events."
@@ -26,10 +23,12 @@
   AnalyticsEvent
   (call-analytics-event
     [x event-label event-value]
-    (call-ga-send-event event-category
-                        event-action
-                        event-label
-                        event-value)))
+    (call-ga "send"
+             "event"
+             event-category
+             event-action
+             event-label
+             event-value)))
 
 (defn send-event
   "Generic event handler. Add other external metric services here."
