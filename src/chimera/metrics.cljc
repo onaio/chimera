@@ -16,8 +16,10 @@
        :cljs (when-let [g (aget js/window "ga")] (apply g final-args)))))
 
 (defprotocol AnalyticsEvent
-  "Create google analytics events."
-  (call-analytics-event [x event-label event-value]))
+  "Generic protocol for analytics events."
+  (call-analytics-event
+    [x event-label event-value]
+    "Call the event appropriately for the target."))
 
 (defrecord GaEvent [event-category event-action]
   AnalyticsEvent
