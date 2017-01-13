@@ -33,11 +33,11 @@
 
 (defn write-translation-file
   "Write string to an outpupt file based on filename."
-  [filename file-format contents]
+  [filename file-format ^String contents]
   (let [path (format "target/translations/%2$s/%1$s.%2$s"
                      filename (name file-format))]
     (make-parents path)
-    (with-open [out-file (writer path)]
+    (with-open [^java.io.Writer out-file (writer path)]
       (.write out-file contents)
       (log/info (str "Translation file written to " path)))))
 
