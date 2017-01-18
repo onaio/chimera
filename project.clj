@@ -3,7 +3,7 @@
       [path]
       (str "resources/public/js/compiled/" path))
 
-(defproject onaio/chimera "0.0.5-SNAPSHOT"
+(defproject onaio/chimera "0.0.5"
   :description "Collection of useful Clojure functions."
   :dependencies [[clj-time "0.12.2"]
                  [com.cognitect/transit-cljs "0.8.239"]
