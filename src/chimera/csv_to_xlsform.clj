@@ -70,7 +70,7 @@
         (and (<= latitude 90) (>= latitude -90)
              (<= longitude 180) (>= longitude 0))))))
 
-(defn- category-like?
+(defn category-like?
   "Return true if v looks like a category. We expect v is a category if the
    proportion of distinct values is less than the constant proportion-unique,
    where we ignore blanks or values that we think represent n/a strings."
