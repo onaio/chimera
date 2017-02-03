@@ -1,6 +1,5 @@
 (ns chimera.test-helpers
-  (:require [clojure.string :refer [split]]
-            [midje.sweet :as midje]))
+  (:require [clojure.string :refer [split]]))
 
 ;;; Fixture loading
 

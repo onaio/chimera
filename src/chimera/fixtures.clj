@@ -3,6 +3,10 @@
             [chimera.test-helpers :refer [load-fixture split-csv]]
             [clojure.set :refer [rename-keys]]))
 
+(def filename "filename")
+(def form-id "form_title")
+(def title "form title")
+
 ;;; Fixtures and expectations
 
 (def example-csv (load-fixture "convert_test.csv"))

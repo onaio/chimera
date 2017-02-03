@@ -10,12 +10,11 @@
                                       example-schema
                                       example-schema+rows
                                       example-schema-strings
-                                      expected-xls-sheet-data]]
+                                      expected-xls-sheet-data
+                                      filename
+                                      form-id
+                                      title]]
             [chimera.csv-to-xlsform :refer :all]))
-
-(def filename "filename")
-(def title "form title")
-(def form-id "form_title")
 
 (defn file->sheets+data
   "Convert an XLSForm file to a list of sheets and their data."
