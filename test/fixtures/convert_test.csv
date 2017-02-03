@@ -1,0 +1,6 @@
+submit_data,food_type,description,amount,rating,risk_factor,food_photo,location_name,location_photo,gps
+2016-05-31,street_meat,asdf,9,nasty,low_risk,n/a,asdf,n/a,35.542336 35.797309 0
+2016-05-31,caffeination,asd,10,nasty,low_risk,n/a,n/a,n/a,-35.915747 -37.864723 0
+2016-05-31,morning_food,10,10,nasty,high_risk,n/a,n/a,n/a,0 0 0
+2016-05-31,morning_food,10,10,nasty,high_risk,n/a,n/a,n/a,0 0 0
+2016-05-31,morning_food,10,10,nasty,high_risk,n/a,n/a,n/a,0 0 0
