@@ -8,12 +8,8 @@
 (def example-csv (load-fixture "convert_test.csv"))
 (def example-csv-list (split-csv example-csv))
 (def example-csv-with-groups (load-fixture "convert_grouped_test.csv"))
-(def example-csv-with-groups-list (-> example-csv-with-groups
-                                      split-csv))
+(def example-csv-with-groups-list (split-csv example-csv-with-groups))
 (def example-csv-eol (load-fixture "convert_test_eol.csv"))
-(def filename "filename")
-(def title "form title")
-(def form-id "form_title")
 
 (def example-schema
   (array-map
@@ -69,7 +65,7 @@
 (def example-illegal-char-schema
   "When coming back accross the wire schema keys have been converted to
    keywords."
-  (let [schema (:schema (-> example-illegal-char-csv csv->schema+rows))
+  (let [schema (:schema (csv->schema+rows example-illegal-char-csv))
         schema-keys (keys schema)]
     (rename-keys schema
                  (apply assoc {}
