@@ -1,6 +1,7 @@
 (ns chimera.string-test
   #?(:cljs (:require-macros [cljs.test :refer [is deftest testing]]))
   (:require [chimera.string :as string]
+            [clojure.string :refer [join]]
             #?(:clj [clojure.test :as t :refer [is deftest testing]]
                :cljs [cljs.test :as t])))
 
@@ -56,23 +57,23 @@
 
 (deftest substring?-tests
   (testing "case-insensitive substrings"
-    (is (= (substring? "FO" "foo" :case-sensitive? false)
+    (is (= (string/substring? "FO" "foo" :case-sensitive? false)
            true))
-    (is (= (substring? "fo" "FOO" :case-sensitive? false)
+    (is (= (string/substring? "fo" "FOO" :case-sensitive? false)
            true)))
   (testing "null substrings"
-    (is (= (substring? "" {})
+    (is (= (string/substring? "" {})
            false))
-    (is (= (substring? "" {} :case-sensitive? false))))
+    (is (= (string/substring? "" {} :case-sensitive? false))))
   (testing "empty string is considered substring"
-    (is (= (substring? "" "foo")
+    (is (= (string/substring? "" "foo")
            true)))
   (testing "case-sensitive non-substrings"
-    (is (= (substring? "FO" "foo")
-           (substring? "FO" "foo" :case-sensitive? true)
+    (is (= (string/substring? "FO" "foo")
+           (string/substring? "FO" "foo" :case-sensitive? true)
            false)))
   (testing "non substrings"
-    (is (= (substring? "bar" "foo") false))))
+    (is (= (string/substring? "bar" "foo") false))))
 
 (deftest error-json->str-test
   (testing "Renders JSON as k: v with capitalized k"
