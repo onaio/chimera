@@ -81,3 +81,10 @@
 
   (testing "Joins when v is a list"
     (is (= (string/error-json->str {:a-key ["a value"]}) "A-key: a value"))))
+
+(deftest humanize-number-test
+  (testing "Adds commas to one million"
+    (is (= (string/humanize-number 1000000) "1,000,000")))
+
+  (testing "Does not add comma to one hunder"
+    (is (= (string/humanize-number 100) "100"))))
