@@ -1,8 +1,8 @@
 (ns chimera.string
   (:require [chimera.core :refer [not-nil?]]
             [clojure.string :as string]
-            #?(:clj [clojure.pprint :refer [cl-format]]
-               :cljs [cljs.pprint :refer [cl-format]])))
+            [#?(:clj clojure.pprint
+                :cljs cljs.pprint) :refer [cl-format]]))
 
 ;;; Validation regexes
 (def email-regex #"(?i)^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$")
