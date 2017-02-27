@@ -7,6 +7,7 @@
 ;;; Validation regexes
 (def email-regex #"(?i)^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$")
 (def twitter-username-regex #"^[A-Za-z0-9_]*$")
+(def domain-name-regex #"([a-z0-9|-]+\.)*[a-z0-9|-]+\.[a-z]+")
 
 ;;; Truncation variables
 (def truncate-if-longer-than 50)
