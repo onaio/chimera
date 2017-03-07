@@ -121,3 +121,11 @@
   "Insert a comma into numbers in thousands and higher"
   [n]
   (cl-format nil "~:d" n))
+
+(defn escape-for-type
+  "Escape for types. Replaces characters in the string with this base on
+  chars->entities map."
+  [x]
+  (cond (nil? x) "null"
+        (string? x) (string/escape x chars->entities)
+        :else x))
