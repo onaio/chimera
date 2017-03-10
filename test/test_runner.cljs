@@ -2,6 +2,7 @@
   (:require
    [cljs.test :as test :refer-macros [run-tests] :refer [report]]
    [chimera.core-test]
+   [chimera.date-test]
    [chimera.js-interop-test]
    [chimera.seq-test]
    [chimera.string-test]))
@@ -19,6 +20,7 @@
        (run-tests
         (test/empty-env ::test/default)
         'chimera.core-test
+        'chimera.date-test
         'chimera.js-interop-test
         'chimera.seq-test
         'chimera.string-test))
