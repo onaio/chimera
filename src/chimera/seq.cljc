@@ -228,5 +228,5 @@
 (defn remove-element
   "Removes an element to a vector"
   [vector element]
-  (vec (remove (fn [id] (= id element))
+  (vec (remove (fn [e] (= e element))
                vector)))
