@@ -216,3 +216,17 @@
   (let [f (fn [[k v]] (if (keyword? k) [(subs (str k) 1) v] [k v]))]
     ;; only apply to maps
     (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+
+(defn add-element
+  "Adds an element to a vector"
+  [vector element]
+  (-> vector
+      (conj (int element))
+      set
+      vec))
+
+(defn remove-element
+  "Removes an element to a vector"
+  [vector element]
+  (vec (remove (fn [e] (= e element))
+               vector)))
