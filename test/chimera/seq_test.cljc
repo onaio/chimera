@@ -9,7 +9,9 @@
                                  ordered-diff
                                  remove-falsey-values
                                  remove-nil
-                                 toggle]]
+                                 toggle
+                                 add-element
+                                 remove-element]]
             #?(:clj [clojure.test :as t :refer [is deftest testing]]
                :cljs [cljs.test :as t])))
 
@@ -137,3 +139,10 @@
   (testing "namespaced keys are converted to strings"
     (is (= (full-stringify-keys {:a/b.c 1})
            {"a/b.c" 1}))))
+
+(deftest adding-and-removing-elements-from-a-vector
+  (testing "add element to a vector"
+    (is (= (sort (add-element [1 2] 3))
+           [1 2 3] ))
+    (is (= (sort (remove-element [1 2 3 4] 4))
+           [1 2 3]))))
