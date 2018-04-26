@@ -17,10 +17,10 @@
 
 (deftest str-is-true?-tests
   (testing "str-is-true? returns true when given true string value"
-    (is (str-is-true? "true") true))
+    (is (= (string/str-is-true? "true") true)))
 
   (testing "str-is-true? returns false when given a non-true string value"
-    (is (str-is-true? "yellow") false)))
+    (is (= (string/str-is-true? "yellow") false))))
 
 (def valid-email "a@b.co")
 
