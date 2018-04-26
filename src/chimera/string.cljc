@@ -17,8 +17,7 @@
 (defn str-is-true?
   "Return true if string value is true else false"
   [value]
-  (and (not-nil? value)
-       (= (string/lower-case value) "true")))
+  (and value (= (string/lower-case value) "true")))
 
 ;;; String types
 (def chars->entities {\< "&lt;" \> "&gt;" \& "&amp;" \" "&quot;" \' "&#39;"})
