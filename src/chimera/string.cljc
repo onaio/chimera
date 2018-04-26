@@ -14,6 +14,11 @@
 (def ellipsis-start 36)
 (def ellipsis-stop-from-end 12)
 
+(defn str-is-true?
+  "Return true if string value is true else false"
+  [value]
+  (and value (= (string/lower-case value) "true")))
+
 ;;; String types
 (def chars->entities {\< "&lt;" \> "&gt;" \& "&amp;" \" "&quot;" \' "&#39;"})
 (def vowel? (set "aeiou"))
