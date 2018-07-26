@@ -22,6 +22,13 @@
   (testing "str-is-true? returns false when given a non-true string value"
     (is (= (string/str-is-true? "yellow") false))))
 
+(deftest is-null-or-nil?-tests
+  (testing "is-null-or-nil? returns true when given a null value"
+    (is (= (string/is-null-or-nil? "null") true)))
+
+  (testing "is-null-or-nil? returns true when given a nil value"
+    (is (= (string/is-null-or-nil? nil) true))))
+
 (def valid-email "a@b.co")
 
 (deftest is-email?-test
