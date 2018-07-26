@@ -108,6 +108,11 @@
   [s]
   (= "null" s))
 
+(defn is-null-or-nil?
+  "Checks if a variable is null or nil"
+  [s]
+  (or (is-null? s) (nil? s)))
+
 (def is-not-null?
   (complement is-null?))
 
