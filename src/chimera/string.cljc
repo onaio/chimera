@@ -150,7 +150,7 @@
         query-param-key (name (or key ""))
         query-param-val (and key (key query-params-map))]
     (case (count query-params-map)
-      0 ""
+      0 nil
       1 (string/join
           (if query-param-str-blank?
             ["?" query-param-key "=" query-param-val]
