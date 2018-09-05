@@ -159,8 +159,6 @@
              (if query-param-str-blank?
                 [query-params-map (str "?")]
                 [(into {} (rest query-params-map))
-                 (let [new-query-param-str
-                       (str query-param-str
-                            (when-not (= query-param-str "?") "&")
-                            query-param-key "=" query-param-val)]
-                   new-query-param-str)])))))
+                 (str query-param-str
+                      (when-not (= query-param-str "?") "&")
+                      query-param-key "=" query-param-val)])))))
