@@ -102,3 +102,12 @@
 
   (testing "Does not add comma to one hunder"
     (is (= (string/humanize-number 100) "100"))))
+
+(deftest get-query-params-str-test
+   (testing "Empty map returns nil"
+     (is (= nil (string/get-query-params-str {}))))
+
+   (testing "None-empty map returns query params string that is not empty"
+     (is (= "?a=1" (string/get-query-params-str {:a 1})))
+
+     (is (= "?a=1&b=2" (string/get-query-params-str {:a 1 :b 2})))))
