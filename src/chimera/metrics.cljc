@@ -17,7 +17,7 @@
               (try
                (apply g final-args)
                (catch js/TypeError e
-                (apply (.-ga js/window) nil final-args)))))))
+                (apply g nil final-args)))))))
 
 (defprotocol AnalyticsEvent
   "Generic protocol for analytics events."
