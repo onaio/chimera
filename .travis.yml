@@ -1,4 +1,6 @@
 language: clojure
+lein: 2.8.1
+jdk: openjdk8
 script:
     - lein bikeshed
     - lein cljfmt check

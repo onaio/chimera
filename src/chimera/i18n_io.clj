@@ -26,8 +26,8 @@
   (:name (filter-first #(= (:iso-code %) language-code) available-languages)))
 
 (defn get-translation-path
-  [language-code]
-  (get-resource-path (generate-filename language-code)))
+  [language-code styling-theme]
+  (get-resource-path (generate-filename language-code styling-theme)))
 
 ;; WRITING TRANSLATION MAP TO FILE
 
@@ -65,12 +65,13 @@
   (walk inner-transformer identity language-map))
 
 (defn update-translation-file
-  [target-language-code available-languages]
-  (let [en-translation-map (load-file (get-translation-path :en))
+  [target-language-code available-languages styling-theme]
+  (let [en-translation-map (load-file (get-translation-path :en styling-theme))
         modified-value-translation-map (wrap-english-translation-values
                                         en-translation-map)
         target-language-translation-file-path (get-translation-path
-                                               target-language-code)
+                                               target-language-code
+                                               styling-theme)
         target-language-translation-map
         (load-file target-language-translation-file-path)
         updated-translation-map
@@ -119,13 +120,13 @@
        (join "\n\n")))
 
 (defn generate-translation-po-file
-  [language-code available-languages]
+  [language-code styling-theme available-languages]
   (let [english-translation-map (-> (dictionary available-languages)
                                     (select-keys [:en])
                                     (generate-translation-maps)
                                     (first))]
     (log/start! "/dev/stdout")
-    (->> {language-code (generate-filename language-code)}
+    (->> {language-code (generate-filename language-code styling-theme)}
          (generate-translation-maps)
          (first)
          (clj->gettext english-translation-map)
@@ -174,10 +175,10 @@
        (apply deep-merge)))
 
 (defn load-translation-po-file
-  [file-path target-language-code]
+  [file-path styling-theme target-language-code]
   (let [file-contents (slurp file-path)
         target-language-translation-file-path
-        (get-translation-path target-language-code)
+        (get-translation-path target-language-code styling-theme)
         target-language-translation-map
         (load-file target-language-translation-file-path)
         updated-translations-map
