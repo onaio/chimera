@@ -3,15 +3,16 @@
             [taoensso.tempura :as tempura]))
 
 (defn generate-filename
-  [language-code]
-  (str "translations/" (name language-code) ".clj"))
+  [language-code styling-theme]
+  (str "translations/" (name styling-theme) "/" (name language-code) ".clj"))
 
 (defn dictionary
   "Generate a map with languagecodes as keys, file names as values"
   [languages]
-  (reduce (fn [m {:keys [iso-code]}]
+  (reduce (fn [m {:keys [iso-code styling-theme]}]
             (assoc m
-                   iso-code {:__load-resource (generate-filename iso-code)}))
+                   iso-code {:__load-resource
+                             (generate-filename iso-code styling-theme)}))
           {}
           languages))
 
