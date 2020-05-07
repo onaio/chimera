@@ -13,7 +13,7 @@
   [& args]
   (let [final-args (remove-nil args)]
     #?(:clj (format "ga('%s');" (join "', '" final-args))
-       :cljs (when-let [g (aget js/window "ga")]
+       :cljs (when-let [g (.-ga js/window)]
               (try
                (apply g final-args)
                (catch js/TypeError e
