@@ -14,10 +14,7 @@
   (let [final-args (remove-nil args)]
     #?(:clj (format "ga('%s');" (join "', '" final-args))
        :cljs (when-let [g (.-ga js/window)]
-              (try
-               (apply g final-args)
-               (catch js/TypeError e
-                (apply g nil final-args)))))))
+               (.call g nil final-args)))))
 
 (defprotocol AnalyticsEvent
   "Generic protocol for analytics events."
