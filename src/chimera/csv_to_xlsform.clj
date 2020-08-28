@@ -34,7 +34,10 @@
     (apply array-map
            (flatten (map-indexed (fn [idx [label opts]]
                                    [label
-                                    (assoc opts :type (nth types idx))])
+                                    (cond->
+                                     (assoc opts :type (nth types idx))
+                                      (= "select_one" (nth types idx))
+                                      (assoc :options "texas"))])
                                  schema)))))
 
 (defn format-xlsform-names
