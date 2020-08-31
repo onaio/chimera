@@ -72,8 +72,15 @@
 
 (facts "about merge-types-into-vector-schema"
        (fact "should handle types arg as a string"
-             (merge-types-into-vector-schema {:a {:type :old}} "new" [["new"]])
-             => {:a {:type "new"}}))
+             (merge-types-into-vector-schema {:a {:type :old}}
+                                             ["new"] [["texas" "washington"]])
+             => {:a {:type "new"}})
+
+       (fact "should add otions if options if type is select one"
+             (merge-types-into-vector-schema {:a {:type "text"}}
+                                             ["select_one"]
+                                             [["texas" "washington"]])
+             => {:a {:type "select_one" :options ["texas" "washington"]}}))
 
 (facts "about rename-header-columns"
        (fact "should replace header row if first-row-as-labels? true"

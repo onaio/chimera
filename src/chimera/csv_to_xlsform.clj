@@ -60,13 +60,14 @@
                 (not ((some-fn seq? vector?) types-raw)) vector)]
     (apply array-map
            (flatten (map-indexed (fn [idx [label opts]]
-                                   [label
-                                    (cond->
-                                     (assoc opts :type (nth types idx))
-                                      (= "select_one" (nth types idx))
-                                      (assoc :options (->> (nth columns idx)
-                                                           distinct
-                                                           (apply vector))))])
+                                   (let [indexed-type (nth types idx)]
+                                     [label
+                                      (cond->
+                                       (assoc opts :type indexed-type)
+                                        (= "select_one" indexed-type)
+                                        (assoc :options (->> (nth columns idx)
+                                                             distinct
+                                                             vec)))]))
                                  schema)))))
 
 (defn format-xlsform-names
