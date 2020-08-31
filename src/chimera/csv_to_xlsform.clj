@@ -51,7 +51,7 @@
      :num-columns num-columns
      :header header
      :rows rows}))
- 
+
 (defn merge-types-into-vector-schema
   "Merge a list of types into the :types value in an vectorized schema.
    Returns an array-map."
@@ -65,8 +65,8 @@
                                      (assoc opts :type (nth types idx))
                                       (= "select_one" (nth types idx))
                                       (assoc :options (->> (nth columns idx)
-                                                          distinct
-                                                          (apply vector))))])
+                                                           distinct
+                                                           (apply vector))))])
                                  schema)))))
 
 (defn format-xlsform-names

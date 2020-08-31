@@ -72,7 +72,7 @@
 
 (facts "about merge-types-into-vector-schema"
        (fact "should handle types arg as a string"
-             (merge-types-into-vector-schema {:a {:type :old}} "new")
+             (merge-types-into-vector-schema {:a {:type :old}} "new" [["new"]])
              => {:a {:type "new"}}))
 
 (facts "about rename-header-columns"
