@@ -25,16 +25,49 @@
       (join "\n" (cons header-row (rest (string/split csv-str #"\r\n|\r|\n"))))
       (str header-row "\n" csv-str))))
 
+(defn- build-default-header
+  "Create a default header matching the number of columns in an assumed data
+   only CSV"
+  [rows]
+  ;; needs translation?
+  (map #(str "column %") (range 1 (-> rows count inc))))
+
+(defn parse-csv-data [csv has-header?]
+  (let [parsed-csv (parse-csv csv)
+        parsed-csv (if (includes? (join (flatten parsed-csv)) "\r")
+                     (parse-csv csv :end-of-line "\r")
+                     parsed-csv)
+        ;; removes blank rows
+        csv-vector (remove (fn [r] (and (= (count r) 1)
+                                        (string/blank? (first r))))
+                           parsed-csv)
+        [header & rows] (when has-header?
+                          (cond->> csv-vector
+                            (not has-header?)
+                            (cons (build-default-header csv-vector))))
+        num-columns (count header)
+        columns (if rows (transpose rows) (repeat num-columns []))]
+    {:columns columns
+     :num-columns num-columns
+     :header header
+     :rows rows}))
+
 (defn merge-types-into-vector-schema
   "Merge a list of types into the :types value in an vectorized schema.
    Returns an array-map."
-  [schema types-raw]
+  [schema types-raw columns]
   (let [types (cond-> types-raw
                 (not ((some-fn seq? vector?) types-raw)) vector)]
     (apply array-map
            (flatten (map-indexed (fn [idx [label opts]]
-                                   [label
-                                    (assoc opts :type (nth types idx))])
+                                   (let [indexed-type (nth types idx)]
+                                     [label
+                                      (cond->
+                                       (assoc opts :type indexed-type)
+                                        (= "select_one" indexed-type)
+                                        (assoc :options (->> (nth columns idx)
+                                                             distinct
+                                                             vec)))]))
                                  schema)))))
 
 (defn format-xlsform-names
@@ -48,13 +81,6 @@
   [f v e]
   `(try (not-every? #(or (false? %) (nil? %)) (doall (map ~f ~v)))
         (catch ~e _# false)))
-
-(defn- build-default-header
-  "Create a default header matching the number of columns in an assumed data
-   only CSV"
-  [rows]
-  ;; needs translation?
-  (map (str "column %") (range 1 (-> rows count inc))))
 
 (defn- is-geopoint-str?
   "Return true if this string looks like a geopoint string, otherwise return
@@ -165,20 +191,8 @@
        exception. If needed we could add :rename or :first options."
   [csv & {:keys [has-header? duplicate-mode] :or {has-header? true
                                                   duplicate-mode :fail}}]
-  (let [parsed-csv (parse-csv csv)
-        parsed-csv (if (includes? (join (flatten parsed-csv)) "\r")
-                     (parse-csv csv :end-of-line "\r")
-                     parsed-csv)
-        ;; removes blank rows
-        csv-vector (remove (fn [r] (and (= (count r) 1)
-                                        (string/blank? (first r))))
-                           parsed-csv)
-        [header & rows] (if has-header?
-                          (cond->> csv-vector
-                            (not has-header?)
-                            (cons (build-default-header csv-vector))))
-        num-columns (count header)
-        columns (if rows (transpose rows) (repeat num-columns []))]
+  (let [{:keys [num-columns header columns rows]}
+        (parse-csv-data csv has-header?)]
     (when (not= (distinct header) header)
       ;; There are duplicate columns
       (case duplicate-mode
