@@ -3,7 +3,7 @@
       [path]
       (str "resources/public/js/compiled/" path))
 
-(defproject onaio/chimera "0.0.13"
+(defproject onaio/chimera "0.0.14-SNAPSHOT"
   :description "Collection of useful Clojure(Script) functions."
   :dependencies [[clj-time "0.12.2"]
                  [com.cognitect/transit-cljs "0.8.239"]
@@ -11,7 +11,7 @@
                  ;; For CSV->XLSForm
                  [clojure-csv/clojure-csv "2.0.2"]
                  [dk.ative/docjure "1.11.0"]
-                 [onelog "0.4.5"]
+                 [onelog "0.5.0"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293"
                   :exclusions [org.clojure/clojure]]
