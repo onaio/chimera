@@ -1,6 +1,5 @@
 (ns chimera.i18n
-  (:require [clojure.string :refer [blank?]]
-            [taoensso.tempura :as tempura]))
+  (:require [taoensso.tempura :as tempura]))
 
 (defn generate-filename
   [language-code styling-theme]
