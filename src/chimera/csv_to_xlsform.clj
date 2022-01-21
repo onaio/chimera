@@ -30,7 +30,7 @@
    only CSV"
   [rows]
   ;; needs translation?
-  (map #(str "column %") (range 1 (-> rows count inc))))
+  (map #(str "column " %) (range 1 (-> rows count inc))))
 
 (defn parse-csv-data [csv has-header?]
   (let [parsed-csv (parse-csv csv)
@@ -228,9 +228,9 @@
                             [["form_id" "title"]
                              [form-id title]])
         temp-file (File/createTempFile
-                   (str filename "-" (create-timestamp)) nil)
-        wb-stream (io/output-stream temp-file)]
-    (spreadsheet/save-workbook! wb-stream wb)
-    {:column-names (map #(nth % 1) (rest survey-sheet))
-     :filename     filename
-     :tempfile     temp-file}))
+                   (str filename "-" (create-timestamp)) nil)]
+    (with-open [wb-stream (io/output-stream temp-file)]
+      (spreadsheet/save-workbook! wb-stream wb)
+      {:column-names (map #(nth % 1) (rest survey-sheet))
+       :filename     filename
+       :tempfile     temp-file})))

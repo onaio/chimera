@@ -5,24 +5,25 @@
 
 (defproject onaio/chimera "0.0.14"
   :description "Collection of useful Clojure(Script) functions."
-  :dependencies [[clj-time "0.12.2"]
-                 [com.cognitect/transit-cljs "0.8.239"]
-                 [com.taoensso/tempura "1.0.0"]
+  :dependencies [[clj-time "0.15.2"]
+                 [com.cognitect/transit-cljs "0.8.269"]
+                 [com.taoensso/tempura "1.2.1"]
                  ;; For CSV->XLSForm
                  [clojure-csv/clojure-csv "2.0.2"]
-                 [dk.ative/docjure "1.11.0"]
-                 [onelog "0.4.5"]
-                 [org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.293"
+                 [dk.ative/docjure "1.17.0"]
+                 [onelog "0.5.0"]
+                 [org.clojure/clojure "1.10.3"]
+                 [org.clojure/clojurescript "1.11.4"
                   :exclusions [org.clojure/clojure]]
-                 [org.clojure/core.async "0.2.395"]
+                 [org.clojure/core.async "1.5.648"]
                  [org.omcljs/om "1.0.0-beta2"]
                  ;; JS
                  [slingshot "0.12.2"]
-                 [cljsjs/moment "2.10.6-4"]]
+                 [cljsjs/moment "2.24.0-0"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
-  :profiles {:dev {:dependencies [[midje "1.8.3"]]}}
+  :profiles {:dev {:dependencies [[midje "1.10.5"]
+                                  [io.aviso/pretty "1.1.1" :exclusions [org.clojure/clojure]]]}}
   :plugins [[jonase/eastwood "0.2.1"]
             [lein-bikeshed-ona "0.2.1"]
             [lein-cljfmt "0.3.0"]
