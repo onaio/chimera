@@ -27,7 +27,7 @@
   :plugins [[jonase/eastwood "1.1.1"]
             [lein-bikeshed-ona "0.2.1"]
             [lein-cljfmt "0.3.0"]
-            [lein-cljsbuild "1.1.2"]
+            [lein-cljsbuild "1.1.8"]
             [lein-environ "1.0.1"]
             [lein-kibit "0.1.2"]
             [lein-midje "3.2.1"]
