@@ -1,7 +1,7 @@
 (defn js-dir
-      "Prefix with full JavaScript directory."
-      [path]
-      (str "resources/public/js/compiled/" path))
+  "Prefix with full JavaScript directory."
+  [path]
+  (str "resources/public/js/compiled/" path))
 
 (defproject onaio/chimera "0.0.14"
   :description "Collection of useful Clojure(Script) functions."
@@ -16,9 +16,9 @@
                  [org.clojure/clojurescript "1.9.293"
                   :exclusions [org.clojure/clojure]]
                  [org.clojure/core.async "0.2.395"]
-                 [org.omcljs/om "0.9.0"]
-                 [slingshot "0.12.2"]
+                 [org.omcljs/om "1.0.0-beta2"]
                  ;; JS
+                 [slingshot "0.12.2"]
                  [cljsjs/moment "2.10.6-4"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
@@ -29,7 +29,8 @@
             [lein-cljsbuild "1.1.2"]
             [lein-environ "1.0.1"]
             [lein-kibit "0.1.2"]
-            [lein-midje "3.1.3"]]
+            [lein-midje "3.2.1"]
+            [lein-doo "0.1.11"]]
   :cljfmt {:file-pattern #"[^\.#]*\.clj[s]?$"}
   :eastwood {:exclude-linters [:constant-test]
              :add-linters [:unused-fn-args
@@ -39,8 +40,7 @@
              :namespaces [:source-paths]
              :exclude-namespaces [chimera.async]}
   :test-paths ["test"]
-  :cljsbuild {
-              :builds {:dev
+  :cljsbuild {:builds {:dev
                        {:compiler {:output-to ~(js-dir "chimera.js")
                                    :output-dir ~(js-dir "out")
                                    :optimizations :whitespace
@@ -48,23 +48,14 @@
                                    :source-map ~(js-dir "chimera.js.map")}}
                        :test
                        {:source-paths ["src" "test"]
-                        :notify-command ["phantomjs"
-                                         "phantom/unit-test.js"
-                                         "phantom/unit-test.html"
-                                         "target/main-test.js"]
-                        :compiler {:output-to "target/main-test.js"
-                                   :optimizations :whitespace
-                                   :pretty-print true}}
+                        :compiler {:output-to "test-output/test-file.js"
+                                   :main test-runner
+                                   :optimizations :none}}
                        :prod
                        {:source-paths ["src"]
                         :compiler {:output-to ~(js-dir "chimera.js")
                                    :output-dir ~(js-dir "out-prod")
                                    :optimizations :advanced
                                    :pretty-print false}
-                        :jar true}}
-              :test-commands {"unit-test"
-                              ["phantomjs"
-                               "phantom/unit-test.js"
-                               "phantom/unit-test.html"
-                               "target/main-test.js"]}}
+                        :jar true}}}
   :global-vars {*warn-on-reflection* true})
