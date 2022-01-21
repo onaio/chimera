@@ -121,7 +121,7 @@
 (defn ^Boolean substring?
   "True if substring is a substring of `s`"
   [substring s & {:keys [case-sensitive?] :or {case-sensitive? true}}]
-  (if (or (empty? s) #?(:cljs (is-null? s)))
+  (if (or (is-null? s) (empty? s))
     false
     (not-nil? (re-find (re-pattern
                         (str (when-not case-sensitive? "(?i)") substring))
@@ -140,25 +140,26 @@
         (string? x) (string/escape x chars->entities)
         :else x))
 
-(defn get-query-params-str [query-params-map & [query-param-str]]
+(defn get-query-params-str
   "Converts a hash-map to a query param string containing the keys and values
    in the hash-map
    Note: this function assumes the values have already been url-encoded"
+  [query-params-map & [query-param-str]]
   (let [query-param-str (str query-param-str)
         query-param-str-blank? (string/blank? query-param-str)
-        key (first (keys query-params-map))
-        query-param-key (name (or key ""))
-        query-param-val (and key (key query-params-map))]
+        frst-key (first (keys query-params-map))
+        query-param-key (name (or frst-key ""))
+        query-param-val (and frst-key (frst-key query-params-map))]
     (case (count query-params-map)
       0 nil
       1 (string/join
-          (if query-param-str-blank?
-            ["?" query-param-key "=" query-param-val]
-            [query-param-str "&" query-param-key "=" query-param-val]))
+         (if query-param-str-blank?
+           ["?" query-param-key "=" query-param-val]
+           [query-param-str "&" query-param-key "=" query-param-val]))
       (apply get-query-params-str
              (if query-param-str-blank?
-                [query-params-map (str "?")]
-                [(into {} (rest query-params-map))
-                 (str query-param-str
-                      (when-not (= query-param-str "?") "&")
-                      query-param-key "=" query-param-val)])))))
+               [query-params-map (str "?")]
+               [(into {} (rest query-params-map))
+                (str query-param-str
+                     (when-not (= query-param-str "?") "&")
+                     query-param-key "=" query-param-val)])))))
