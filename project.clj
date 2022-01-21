@@ -24,7 +24,7 @@
   :url "https://github.com/onaio/chimera"
   :profiles {:dev {:dependencies [[midje "1.10.5"]
                                   [io.aviso/pretty "1.1.1" :exclusions [org.clojure/clojure]]]}}
-  :plugins [[jonase/eastwood "0.2.1"]
+  :plugins [[jonase/eastwood "1.1.1"]
             [lein-bikeshed-ona "0.2.1"]
             [lein-cljfmt "0.3.0"]
             [lein-cljsbuild "1.1.2"]

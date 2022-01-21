@@ -14,4 +14,3 @@
            'chimera.js-interop-test
            'chimera.seq-test
            'chimera.string-test)
-
