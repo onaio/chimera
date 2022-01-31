@@ -1,7 +1,13 @@
-[![Build Status](https://travis-ci.org/onaio/chimera.svg?branch=master)](https://travis-ci.org/onaio/chimera)
+[![example workflow](https://github.com/onaio/chimera/actions/workflows/ci.yml/badge.svg?branch=feature-1)](https://github.com/onaio/chimera/actions/workflows/ci.yml)
 
-# chimera
+# [chimera](https://clojars.org/onaio/chimera)
 Clojure Utilities
+
+## Installation
+
+Install via clojars with:
+
+[![Clojars Project](http://clojars.org/onaio/chimera/latest-version.svg)](http://clojars.org/onaio/chimera)
 
 
 ## running JS tests
