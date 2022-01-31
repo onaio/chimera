@@ -41,8 +41,8 @@
 (defn sort-by-category
   [sort-by-key collection]
   (sort-by
-    (fn [item] (-> item :metadata sort-by-key))
-    collection))
+   (fn [item] (-> item :metadata sort-by-key))
+   collection))
 
 (defn update-values
   "Apply a function to each value of a map. From http://goo.gl/JdwzZf"
@@ -53,14 +53,14 @@
    (defn sort-by-date
      [sort-by-key collection]
      (sort-by
-       (fn [item]
-         (l/to-local-date-time
-           (if-let [sort-by-value (seq (sort-by-key item))]
-             (string/join sort-by-value)
+      (fn [item]
+        (l/to-local-date-time
+         (if-let [sort-by-value (seq (sort-by-key item))]
+           (string/join sort-by-value)
              ;; Use date in the past if no date
-             default-date)))
-       time/after?
-       collection)))
+           default-date)))
+      time/after?
+      collection)))
 
 (defn sort-by-name
   [sort-by-key collection]
@@ -88,7 +88,7 @@
   "Like core/assoc-in but accepting multiple key vectors and values
    (assoc-in* coll & args)"
   [coll & args]
-  {:pre (even? (count args))}
+  {:pre [(even? (count args))]}
   (let [pairs (partition 2 args)
         reducer (fn [skeleton-map [keys value]]
                   (assoc-in skeleton-map keys value))]
@@ -130,12 +130,12 @@
   ([query collection k case-insensitive?]
    (let [query-cased (if case-insensitive? (string/lower-case query) query)]
      (remove
-       nil?
-       (for [member collection
-             :let [v (k member)
-                   v-cased (if case-insensitive? (string/lower-case v) v)]
-             :when (substring? query-cased v-cased)]
-         member)))))
+      nil?
+      (for [member collection
+            :let [v (k member)
+                  v-cased (if case-insensitive? (string/lower-case v) v)]
+            :when (substring? query-cased v-cased)]
+        member)))))
 
 (defn positions
   "Returns the position of at which pred is true for items in coll."

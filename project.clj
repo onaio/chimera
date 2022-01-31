@@ -1,35 +1,37 @@
 (defn js-dir
-      "Prefix with full JavaScript directory."
-      [path]
-      (str "resources/public/js/compiled/" path))
+  "Prefix with full JavaScript directory."
+  [path]
+  (str "resources/public/js/compiled/" path))
 
-(defproject onaio/chimera "0.0.14"
+(defproject onaio/chimera "0.1.0"
   :description "Collection of useful Clojure(Script) functions."
-  :dependencies [[clj-time "0.12.2"]
-                 [com.cognitect/transit-cljs "0.8.239"]
-                 [com.taoensso/tempura "1.0.0"]
+  :dependencies [[clj-time "0.15.2"]
+                 [com.cognitect/transit-cljs "0.8.269"]
+                 [com.taoensso/tempura "1.2.1"]
                  ;; For CSV->XLSForm
                  [clojure-csv/clojure-csv "2.0.2"]
-                 [dk.ative/docjure "1.11.0"]
-                 [onelog "0.4.5"]
-                 [org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.293"
+                 [dk.ative/docjure "1.17.0"]
+                 [onelog "0.5.0"]
+                 [org.clojure/clojure "1.10.3"]
+                 [org.clojure/clojurescript "1.11.4"
                   :exclusions [org.clojure/clojure]]
-                 [org.clojure/core.async "0.2.395"]
-                 [org.omcljs/om "0.9.0"]
-                 [slingshot "0.12.2"]
+                 [org.clojure/core.async "1.5.648"]
+                 [org.omcljs/om "1.0.0-beta2"]
                  ;; JS
-                 [cljsjs/moment "2.10.6-4"]]
+                 [slingshot "0.12.2"]
+                 [cljsjs/moment "2.24.0-0"]]
   :license "Apache 2"
   :url "https://github.com/onaio/chimera"
-  :profiles {:dev {:dependencies [[midje "1.8.3"]]}}
-  :plugins [[jonase/eastwood "0.2.1"]
+  :profiles {:dev {:dependencies [[midje "1.10.5"]
+                                  [io.aviso/pretty "1.1.1" :exclusions [org.clojure/clojure]]]}}
+  :plugins [[jonase/eastwood "1.1.1"]
             [lein-bikeshed-ona "0.2.1"]
             [lein-cljfmt "0.3.0"]
-            [lein-cljsbuild "1.1.2"]
+            [lein-cljsbuild "1.1.8"]
             [lein-environ "1.0.1"]
             [lein-kibit "0.1.2"]
-            [lein-midje "3.1.3"]]
+            [lein-midje "3.2.1"]
+            [lein-doo "0.1.11"]]
   :cljfmt {:file-pattern #"[^\.#]*\.clj[s]?$"}
   :eastwood {:exclude-linters [:constant-test]
              :add-linters [:unused-fn-args
@@ -39,8 +41,7 @@
              :namespaces [:source-paths]
              :exclude-namespaces [chimera.async]}
   :test-paths ["test"]
-  :cljsbuild {
-              :builds {:dev
+  :cljsbuild {:builds {:dev
                        {:compiler {:output-to ~(js-dir "chimera.js")
                                    :output-dir ~(js-dir "out")
                                    :optimizations :whitespace
@@ -48,23 +49,14 @@
                                    :source-map ~(js-dir "chimera.js.map")}}
                        :test
                        {:source-paths ["src" "test"]
-                        :notify-command ["phantomjs"
-                                         "phantom/unit-test.js"
-                                         "phantom/unit-test.html"
-                                         "target/main-test.js"]
-                        :compiler {:output-to "target/main-test.js"
-                                   :optimizations :whitespace
-                                   :pretty-print true}}
+                        :compiler {:output-to "test-output/test-file.js"
+                                   :main test-runner
+                                   :optimizations :none}}
                        :prod
                        {:source-paths ["src"]
                         :compiler {:output-to ~(js-dir "chimera.js")
                                    :output-dir ~(js-dir "out-prod")
                                    :optimizations :advanced
                                    :pretty-print false}
-                        :jar true}}
-              :test-commands {"unit-test"
-                              ["phantomjs"
-                               "phantom/unit-test.js"
-                               "phantom/unit-test.html"
-                               "target/main-test.js"]}}
+                        :jar true}}}
   :global-vars {*warn-on-reflection* true})

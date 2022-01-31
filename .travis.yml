@@ -9,7 +9,18 @@ script:
     - lein midje
     - lein cljsbuild once dev
     - lein cljsbuild once prod
-    - lein cljsbuild test
+    - id -u -n
+    - Xvfb :10 &
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+    - export NVM_DIR="$HOME/.nvm"
+    - \. "$NVM_DIR/nvm.sh"
+    - nvm install v12.16.1
+    - nvm use v12.16.1
+    - npm install -g karma-cli
+    - npm install karma --save-dev
+    - npm install karma-cljs-test --save-dev
+    - npm install karma-chrome-launcher --save-dev
+    - lein doo chrome-headless test once
 notifications:
   email:
     - tech+travis@ona.io
