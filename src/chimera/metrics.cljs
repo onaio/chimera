@@ -5,7 +5,7 @@
    If `gtag` does not exist do nothing."
   [event name args]
   (if-let [gtag (.-gtag js/window)]
-    (.call gtag event name (clj->js args))
+    (gtag event name (clj->js args))
     (js/console.warn "gtag object is not defined")))
 
 (defn call-analytics-event
