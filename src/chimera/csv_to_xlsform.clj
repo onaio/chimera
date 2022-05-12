@@ -228,7 +228,7 @@
                             [["form_id" "title"]
                              [form-id title]])
         temp-file (File/createTempFile
-                   (str filename "-" (create-timestamp)) nil)]
+                   (str filename "-" (create-timestamp) ".xlsx") nil)]
     (with-open [wb-stream (io/output-stream temp-file)]
       (spreadsheet/save-workbook! wb-stream wb)
       {:column-names (map #(nth % 1) (rest survey-sheet))
